@@ -3,7 +3,7 @@ const languageDropdown = document.getElementById('language');
 const result = document.getElementById('result');
 
 // Fetching data from API
-    // const url = `https://api.github.com/search/repositories?q=language`
+    // const url = `https://api.github.com/search/repositories?q=language:${language}`
     // fetch(url)
     // .then(response=>response.json())
     // .then(data => console.log(data))
@@ -19,12 +19,20 @@ async function fetchAndDisplayRepository(language) {
         const randomRepository = data.items[randomIndex];
         displayRepository(randomRepository)
        } else {
-        result.innerHTML = `<p>No repositories found for $(language)</p>`
+        result.innerHTML = `
+            <p>No repositories found for ${language}</p>
+            <button id="retry-btn">Retry</button>
+        `;
+        document.getElementById("retry-btn").addEventListener("click", resetState);
        }
     } catch (error) {
-        result.innerHTML = `<p>Error fetching repositories</p>`
+        result.innerHTML = `
+            <p>Error fetching repositories</p>
+            <button id="retry-btn">Retry</button>
+        `;
+        document.getElementById("retry-btn").addEventListener("click", resetState);
     }
-    console.log(data);
+    
 }
 
 
@@ -42,8 +50,17 @@ function displayRepository(repository) {
                     <li>${forks}</li>
                     <li>${open_issues}</li>
                 </ul>
+                <button id="refresh-btn">Refresh</button>
          </div>
     `;
+
+    document.getElementById("refresh-btn").addEventListener("click", resetState);
+}
+// Reset to initial state
+function resetState() {
+    result.innerHTML = `<h3>Please select a language</h3>`;
+
+    languageDropdown.value = "";
 }
 
 // Handle dropdown
