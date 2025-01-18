@@ -44,12 +44,13 @@ function displayRepository(repository) {
         <div class="repository">
                 <h1>${name}</h1>
                 <p>${description || "No description available"}</p>
-                <ul>
-                    <li>${language}</li>
-                    <li>${stargazers_count}</li>
-                    <li>${forks}</li>
-                    <li>${open_issues}</li>
-                </ul>
+                <div id="details">
+                    <div class="detail">${language}</div>
+                    <div class="detail">${stargazers_count}</div>
+                    <div class="detail">${forks}</div>
+                    <div class="detail">${open_issues}</div>
+                </div>
+                
                 <button id="refresh-btn">Refresh</button>
          </div>
     `;
